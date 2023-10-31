@@ -1,0 +1,145 @@
+﻿@page "/Clients/Form/{id?}"
+@model FrontApplication.Pages.Clients.FormModel
+@{
+}
+
+<h1>Create Client</h1>
+
+<form method="post">
+    <input hidden asp-for="Client.Id" />
+    @if (Model.Id is not null)
+    {
+        <div>
+            <label>Id</label>
+            <input disabled type="text" asp-for="Client.Id" />
+        </div>
+    }
+    <div>
+        <label>First Name</label>
+        <input type="text" asp-for="Client.Name.FirstName" />
+    </div>
+    <div>
+        <label>Last Name</label>
+        <input type="text" asp-for="Client.Name.LastName" />
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="text" asp-for="Client.Email" />
+    </div>
+    <div>
+        <label>Logo</label>
+        <input type="text" asp-for="Client.Logo" />
+    </div>
+    <div>
+        <label>PublicThoroughfares</label>
+        <table id="tableHtml">
+            <thead>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        Street
+                    </th>
+                    <th>
+                        Number
+                    </th>
+                    <th>
+                        City
+                    </th>
+                    <th>
+                        State
+                    </th>
+                    <th>
+                        AditionalInformation
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Client.PublicThoroughfares.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input hidden asp-for="Client.PublicThoroughfares[i].Id" />
+                            <input disabled asp-for="Client.PublicThoroughfares[i].Id" />
+                        </td>
+                        <td>
+                            <input type="text" asp-for="Client.PublicThoroughfares[i].Street" />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="Client.PublicThoroughfares[i].Number" />
+                        </td>
+                        <td>
+                            <input type="text" asp-for="Client.PublicThoroughfares[i].City" />
+                        </td>
+                        <td>
+                            <input type="text" asp-for="Client.PublicThoroughfares[i].State" />
+                        </td>
+                        <td>
+                            <input type="text" asp-for="Client.PublicThoroughfares[i].AditionalInformation" />
+                        </td>
+                        <td>
+                            <button onclick="removeRow(this)" class="remove-btn" type="button">Remove</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="button" id="buttonHtml">Add PublicThoroughfare</button>
+    </div>
+    <button>Submit</button>
+</form>
+
+@section Scripts {
+    <script>
+        var index = @Model.Client.PublicThoroughfares.Count;
+        var addBt = document.getElementById("buttonHtml");
+        var tableProps = [{
+            name: "Street",
+            type: "text"
+        },
+        {
+            name: "Number",
+            type: "number"
+        },
+        {
+            name: "City",
+            type: "text"
+        },
+        {
+            name: "State",
+            type: "text"
+        },
+        {
+            name: "AditionalInformation",
+            type: "text"
+        }]
+        addBt.addEventListener("click", function () {
+            var newRow = document.createElement("tr");
+
+            var idData = document.createElement("td");
+            idData.innerHTML = `<input hidden name="Client.PublicThoroughfares[${index}].Id" /><input disabled name= "Client.PublicThoroughfares[${index}].Id" />`;
+            newRow.appendChild(idData);
+
+            for (var i = 0; i < tableProps.length; i++) {
+                var elementData = document.createElement("td");
+                elementData.innerHTML = `<input type="${tableProps[i].type}" name="Client.PublicThoroughfares[${index}].${tableProps[i].name}" />`;
+                newRow.appendChild(elementData);
+            }
+
+            var btData = document.createElement("td");
+            btData.innerHTML = `<button onclick="removeRow(this)" class="remove-btn" type="button">Remove</button>`;
+            newRow.appendChild(btData);
+
+            var table = document.getElementById("tableHtml");
+            table.tBodies[0].appendChild(newRow);
+
+            index++;
+        });
+        function removeRow(htmlElement) {
+            htmlElement.closest("tr").remove()
+        }
+
+    </script>
+}

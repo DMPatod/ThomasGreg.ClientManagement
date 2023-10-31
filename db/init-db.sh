@@ -1,0 +1,10 @@
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d master -i /tmp/01-CreateApplicationDatabase.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d master -i /tmp/02-CreateApplicationUser.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/03-CreateClientsTable.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/04-CreatePublicThoroughfaresTable.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/05-CreateClientType.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/06-CreatePublicThoroughfareType.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/07-CreateClientProcedure.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/08-ReadClientProcedure.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/09-DeleteClientProcedure.sql
+/opt/mssql-tools/bin/sqlcmd -S sql-server -U sa -P 42fQYpi46h9L -d ThomasGreg -i /tmp/10-UpdateClientProcedure.sql

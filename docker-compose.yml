@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  application-frontend:
+    build:
+      dockerfile: src/FrontApplication/Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - frontend-network
+    environment:
+      - ConnectionStrings__ClientAPIUri=http://client-management-backend
+
+  client-management-backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9000:80"
+    networks:
+      - backend-network
+      - frontend-network
+    environment:
+      - ConnectionStrings__MSSQL=Server=sql-server;Database=ThomasGreg;User=application_login;Password=xGN0KSXm7nd9
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: 42fQYpi46h9L
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-server-data:/var/opt/mssql
+    networks:
+      - backend-network
+
+  mssql-tools:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - sql-server
+    volumes:
+      - ./db/01-CreateApplicationDatabase.sql:/tmp/01-CreateApplicationDatabase.sql
+      - ./db/02-CreateApplicationUser.sql:/tmp/02-CreateApplicationUser.sql
+      - ./db/03-CreateClientsTable.sql:/tmp/03-CreateClientsTable.sql
+      - ./db/04-CreatePublicThoroughfaresTable.sql:/tmp/04-CreatePublicThoroughfaresTable.sql
+      - ./db/05-CreateClientType.sql:/tmp/05-CreateClientType.sql
+      - ./db/06-CreatePublicThoroughfareType.sql:/tmp/06-CreatePublicThoroughfareType.sql
+      - ./db/07-CreateClientProcedure.sql:/tmp/07-CreateClientProcedure.sql
+      - ./db/08-ReadClientProcedure.sql:/tmp/08-ReadClientProcedure.sql
+      - ./db/09-DeleteClientProcedure.sql:/tmp/09-DeleteClientProcedure.sql
+      - ./db/10-UpdateClientProcedure.sql:/tmp/10-UpdateClientProcedure.sql
+      - ./db/init-db.sh:/tmp/init-db.sh
+    command: /bin/bash ./tmp/init-db.sh
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+  frontend-network:
+    driver: bridge
+
+volumes:
+  sql-server-data:

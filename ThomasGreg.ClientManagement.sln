@@ -1,0 +1,89 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A889986-17FA-4EEA-A5E2-F71ED16CD216}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientManagement.API", "src\ClientManagement.API\ClientManagement.API.csproj", "{C3434443-5335-4518-94B8-7AF4C4F58426}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientManagement.Application", "src\ClientManagement.Application\ClientManagement.Application.csproj", "{89FFD73D-DF97-4323-AF3E-249EBC7A4EF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientManagement.Domain", "src\ClientManagement.Domain\ClientManagement.Domain.csproj", "{9BADFF4D-A9A9-4561-B508-DBC0E831C7B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientManagement.Infrastructure", "src\ClientManagement.Infrastructure\ClientManagement.Infrastructure.csproj", "{03115EC8-375D-4DD1-BD0B-1F58C898D52F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildBlocks.Core", "src\BuildBlocks.Core\BuildBlocks.Core.csproj", "{9D66B8E7-69D1-4E61-A76C-53A53A795F4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4A63431-0850-47F3-B27F-B13D7C24EAFF}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{4E043B05-0485-45D2-B3A4-DD84B9175A26}"
+	ProjectSection(SolutionItems) = preProject
+		db\01-CreateApplicationDatabase.sql = db\01-CreateApplicationDatabase.sql
+		db\02-CreateApplicationUser.sql = db\02-CreateApplicationUser.sql
+		db\03-CreateClientsTable.sql = db\03-CreateClientsTable.sql
+		db\04-CreatePublicThoroughfaresTable.sql = db\04-CreatePublicThoroughfaresTable.sql
+		db\05-CreateClientType.sql = db\05-CreateClientType.sql
+		db\06-CreatePublicThoroughfareType.sql = db\06-CreatePublicThoroughfareType.sql
+		db\07-CreateClientProcedure.sql = db\07-CreateClientProcedure.sql
+		db\08-ReadClientProcedure.sql = db\08-ReadClientProcedure.sql
+		db\09-DeleteClientProcedure.sql = db\09-DeleteClientProcedure.sql
+		db\10-UpdateClientProcedure.sql = db\10-UpdateClientProcedure.sql
+		db\init-db.sh = db\init-db.sh
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontApplication", "src\FrontApplication\FrontApplication.csproj", "{438B3A4A-25B9-480C-852B-C05BF53E84EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3434443-5335-4518-94B8-7AF4C4F58426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3434443-5335-4518-94B8-7AF4C4F58426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3434443-5335-4518-94B8-7AF4C4F58426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3434443-5335-4518-94B8-7AF4C4F58426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89FFD73D-DF97-4323-AF3E-249EBC7A4EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89FFD73D-DF97-4323-AF3E-249EBC7A4EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89FFD73D-DF97-4323-AF3E-249EBC7A4EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89FFD73D-DF97-4323-AF3E-249EBC7A4EF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BADFF4D-A9A9-4561-B508-DBC0E831C7B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BADFF4D-A9A9-4561-B508-DBC0E831C7B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BADFF4D-A9A9-4561-B508-DBC0E831C7B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BADFF4D-A9A9-4561-B508-DBC0E831C7B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03115EC8-375D-4DD1-BD0B-1F58C898D52F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03115EC8-375D-4DD1-BD0B-1F58C898D52F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03115EC8-375D-4DD1-BD0B-1F58C898D52F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03115EC8-375D-4DD1-BD0B-1F58C898D52F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D66B8E7-69D1-4E61-A76C-53A53A795F4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D66B8E7-69D1-4E61-A76C-53A53A795F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D66B8E7-69D1-4E61-A76C-53A53A795F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D66B8E7-69D1-4E61-A76C-53A53A795F4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438B3A4A-25B9-480C-852B-C05BF53E84EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438B3A4A-25B9-480C-852B-C05BF53E84EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438B3A4A-25B9-480C-852B-C05BF53E84EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438B3A4A-25B9-480C-852B-C05BF53E84EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C3434443-5335-4518-94B8-7AF4C4F58426} = {7A889986-17FA-4EEA-A5E2-F71ED16CD216}
+		{89FFD73D-DF97-4323-AF3E-249EBC7A4EF3} = {7A889986-17FA-4EEA-A5E2-F71ED16CD216}
+		{9BADFF4D-A9A9-4561-B508-DBC0E831C7B9} = {7A889986-17FA-4EEA-A5E2-F71ED16CD216}
+		{03115EC8-375D-4DD1-BD0B-1F58C898D52F} = {7A889986-17FA-4EEA-A5E2-F71ED16CD216}
+		{9D66B8E7-69D1-4E61-A76C-53A53A795F4C} = {7A889986-17FA-4EEA-A5E2-F71ED16CD216}
+		{438B3A4A-25B9-480C-852B-C05BF53E84EE} = {7A889986-17FA-4EEA-A5E2-F71ED16CD216}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5012DFCF-D1F1-4D9B-A464-C068BA29422A}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,45 @@
+﻿@page "/Clients/Index"
+@model FrontApplication.Pages.Clients.IndexModel
+@{
+}
+
+@if (Model.Clients is not null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Logo</th>
+                <th>PublicThoroughfare</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Clients)
+            {
+                <tr>
+                    <td>@item.Name.FirstName</td>
+                    <td>@item.Name.LastName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Logo</td>
+                    <td>@item.PublicThoroughfares.Count</td>
+                    <td><a asp-page="/Clients/Form" asp-route-id="@item.Id" method="post">Edit</a></td>
+                    <td>
+                        <form asp-page-handler="delete" asp-route-id="@item.Id">
+                            <button>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-area="" asp-page="/Clients/Form">Create Client</a>
+}
+else
+{
+    <h1>Fail to receive data.</h1>
+}
