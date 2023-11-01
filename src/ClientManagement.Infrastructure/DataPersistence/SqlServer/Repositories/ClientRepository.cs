@@ -1,6 +1,8 @@
 ﻿using ClientManagement.Domain.Clients;
 using ClientManagement.Domain.Clients.Repositories;
 using ClientManagement.Domain.Clients.ValueObjects;
+using ClientManagement.Infrastructure.DataPersistence.Converter;
+using ClientManagement.Infrastructure.DataPersistence.TableTypes;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -15,55 +17,22 @@ namespace ClientManagement.Infrastructure.DataPersistence.SqlServer.Repositories
             this.context = context;
         }
 
-        private DataTable ToDataTable<T>(IEnumerable<T> param)
-        {
-            var table = new DataTable();
-            var propInfo = typeof(T).GetProperties();
-
-            foreach (var item in propInfo)
-            {
-                if (item.Name == "Id" || item.Name == "DomainEvents")
-                {
-                    continue;
-                }
-                table.Columns.Add(item.Name, Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType);
-            }
-
-            foreach (var item in param)
-            {
-                var row = table.NewRow();
-                foreach (var prop in propInfo)
-                {
-                    if (prop.Name == "Id" || prop.Name == "DomainEvents")
-                    {
-                        continue;
-                    }
-                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-                }
-                table.Rows.Add(row);
-            }
-
-            return table;
-        }
-
         public async Task<Client?> CreateAsync(Client client, CancellationToken cancellationToken = default)
         {
-            var table = new DataTable();
-            table.Rows.Add(table.NewRow());
-
             var output = new SqlParameter("@Output", SqlDbType.UniqueIdentifier)
             {
                 Direction = ParameterDirection.Output,
             };
             await context.Database.ExecuteSqlRawAsync(
-                "EXEC CreateClient @FirstName, @LastName, @Email, @Logo, @PublicThoroughfares, @Output OUTPUT",
-                new SqlParameter("@FirstName", client.Name.FirstName),
-                new SqlParameter("@LastName", client.Name.LastName),
-                new SqlParameter("@Email", client.Email),
-                new SqlParameter("@Logo", client.Logo),
+                "EXEC CreateClient @Client, @PublicThoroughfares, @Output OUTPUT",
+                new SqlParameter("@Client", SqlDbType.Structured)
+                {
+                    Value = client.ToDataTable(),
+                    TypeName = "ClientType"
+                },
                 new SqlParameter("@PublicThoroughfares", SqlDbType.Structured)
                 {
-                    Value = ToDataTable(client.PublicThoroughfares),
+                    Value = client.PublicThoroughfares.ToDataTable(),
                     TypeName = "PublicThoroughfareType"
                 },
                 output);
@@ -90,24 +59,25 @@ namespace ClientManagement.Infrastructure.DataPersistence.SqlServer.Repositories
                 output);
 
             return (int)output.Value > 0;
-
         }
 
-        public async Task<IEnumerable<Client>> GetAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Client>> FindAsync(CancellationToken cancellationToken = default)
         {
             var clients = await context.Set<Client>().ToListAsync(cancellationToken);
             return clients;
         }
 
-        public async Task<Client?> GetAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<Client?> FindAsync(string id, CancellationToken cancellationToken = default)
         {
             var client = await context.Set<Client>().SingleOrDefaultAsync(ent => ent.Id == ClientId.Create(id), cancellationToken);
             return client;
         }
 
-        public Task<Client> UpdateAsync(Client client, CancellationToken cancellationToken = default)
+        public async Task<Client> UpdateAsync(Client client, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            context.Set<Client>().Update(client);
+            await context.SaveChangesAsync(cancellationToken);
+            return client;
         }
     }
 }

@@ -3,5 +3,5 @@ using ClientManagement.API.Contracts.PublicThoroughfares;
 
 namespace ClientManagement.API.Contracts.Clients
 {
-    public record ClientCreateRequest(NameCreateRequest? Name, string? Email, string? Logo, ICollection<PublicThoroughfareCreateRequest>? PublicThoroughfares);
+    public record ClientCreateRequest(NameRequest? Name, string? Email, string? Logo, ICollection<PublicThoroughfareCreateRequest>? PublicThoroughfares);
 }

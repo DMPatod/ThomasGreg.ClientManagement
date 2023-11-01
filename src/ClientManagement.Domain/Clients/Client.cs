@@ -6,7 +6,7 @@ namespace ClientManagement.Domain.Clients
 {
     public class Client : Entity<ClientId>
     {
-        private readonly ICollection<PublicThoroughfare> publicThoroughfares = new List<PublicThoroughfare>();
+        private ICollection<PublicThoroughfare> publicThoroughfares = new List<PublicThoroughfare>();
         private Client() { }
         private Client(ClientId id, Name name, string email, string logo, ICollection<PublicThoroughfare> publicThoroughfares)
             : base(id)
@@ -26,6 +26,10 @@ namespace ClientManagement.Domain.Clients
         public static Client Create(Name name, string email, string logo, ICollection<PublicThoroughfare> publicThoroughfares)
         {
             return new Client(ClientId.Create(), name, email, logo, publicThoroughfares);
+        }
+        public void AddPublicThoroughfare(PublicThoroughfare publicThoroughfare)
+        {
+            publicThoroughfares.Add(publicThoroughfare);
         }
     }
 }

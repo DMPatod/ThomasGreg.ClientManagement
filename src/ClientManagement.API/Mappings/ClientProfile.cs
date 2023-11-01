@@ -20,8 +20,11 @@ namespace ClientManagement.API.Mappings
             CreateMap<PublicThoroughfare, PublicThoroughfareResponse>().ReverseMap();
 
             CreateMap<ClientCreateRequest, ClientCreateCommand>();
-            CreateMap<NameCreateRequest, NameCreateCommand>();
+            CreateMap<NameRequest, NameCommand>();
             CreateMap<PublicThoroughfareCreateRequest, PublicThoroughfareCreateCommand>();
+
+            CreateMap<ClientUpdateRequest, ClientUpdateCommand>();
+            CreateMap<PublicThoroughfareUpdateRequest, PublicThoroughfareUpdateCommand>();
         }
     }
 }

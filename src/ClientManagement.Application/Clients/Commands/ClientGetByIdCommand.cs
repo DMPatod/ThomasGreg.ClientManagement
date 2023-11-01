@@ -15,7 +15,7 @@ namespace ClientManagement.Application.Clients.Commands
         }
         public async Task<Result<Client>> Handle(ClientGetByIdCommand request, CancellationToken cancellationToken)
         {
-            var client = await repository.GetAsync(request.Id, cancellationToken);
+            var client = await repository.FindAsync(request.Id, cancellationToken);
             if (client is null)
             {
                 return Result.Fail("Unable to find given Client");

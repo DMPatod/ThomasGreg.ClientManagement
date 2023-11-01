@@ -9,7 +9,7 @@ using FluentResults;
 
 namespace ClientManagement.Application.Clients.Commands
 {
-    public record ClientCreateCommand(NameCreateCommand Name, string Email, string Logo, ICollection<PublicThoroughfareCreateCommand> PublicThoroughfares) : ICommand<Result<Client>>;
+    public record ClientCreateCommand(NameCommand Name, string Email, string Logo, ICollection<PublicThoroughfareCreateCommand> PublicThoroughfares) : ICommand<Result<Client>>;
 
     public class ClientCreateCommandHandler : ICommandHandler<ClientCreateCommand, Result<Client>>
     {

@@ -59,10 +59,18 @@ namespace ClientManagement.API.Controllers.V1
 
             return BadRequest();
         }
-        [HttpPut]
-        public async Task<IActionResult> Update()
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromBody] ClientUpdateRequest request)
         {
-            return Ok();
+            var command = mapper.Map<ClientUpdateCommand>(request);
+            var result = await messageHandler.SendAsync(command, CancellationToken.None);
+            if (result.IsSuccess)
+            {
+                var response = mapper.Map<ClientResponse>(result.Value);
+                return Ok(response);
+            }
+
+            return BadRequest();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)

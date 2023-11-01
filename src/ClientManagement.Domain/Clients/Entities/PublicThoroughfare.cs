@@ -25,5 +25,14 @@ namespace ClientManagement.Domain.Clients.Entities
         {
             return new PublicThoroughfare(PublicThoroughfareId.Create(), street, number, city, state, aditionalInformation);
         }
+
+        public void Update(string street, int number, string city, string state, string aditionalInformation)
+        {
+            Street = street;
+            Number = number;
+            City = city;
+            State = state;
+            AditionalInformation = aditionalInformation;
+        }
     }
 }

@@ -40,6 +40,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseExceptionHandler("api/error");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

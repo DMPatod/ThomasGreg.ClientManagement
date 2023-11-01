@@ -15,7 +15,7 @@ namespace ClientManagement.Application.Clients.Commands
         }
         public async Task<Result<IEnumerable<Client>>> Handle(ClientGetAllCommand request, CancellationToken cancellationToken)
         {
-            var clients = await repository.GetAsync(cancellationToken);
+            var clients = await repository.FindAsync(cancellationToken);
             return clients.ToList();
         }
     }
